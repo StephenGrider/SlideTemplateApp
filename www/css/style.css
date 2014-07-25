@@ -1,3 +1,8 @@
 a {
   color: blue;
   height: 25px; }
+
+.box {
+  height: 99%;
+  width: 99%;
+  background-color: blue; }
