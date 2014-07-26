@@ -48,7 +48,11 @@ angular.module("starter", ["ionic", "starter.controllers", "starter.services", "
   return $urlRouterProvider.otherwise("/tab/dash");
 });
 
-angular.module("starter.controllers", []).controller("DashCtrl", function($scope) {}).controller("FriendsCtrl", function($scope, Friends) {
+angular.module("starter.controllers", []).controller("DashCtrl", function($scope) {
+  return $scope.$on('card:exit', function() {
+    return console.log('hey');
+  });
+}).controller("FriendsCtrl", function($scope, Friends) {
   return $scope.friends = Friends.all();
 }).controller("FriendDetailCtrl", function($scope, $stateParams, Friends) {
   return $scope.friend = Friends.get($stateParams.friendId);
@@ -60,9 +64,11 @@ angular.module("starter.directives").directive('card', function($ionicGesture, M
   return {
     restrict: 'E',
     templateUrl: '/templates/directives/card.html',
-    link: function(scope, elem, attrs) {
+    scope: '{}',
+    link: function(scope, elem, attrs, controller) {
       var currentX, currentY, dragFn, releaseFn;
       currentX = currentY = 0;
+      scope.cardId = 123;
       dragFn = function(e) {
         MovementService.stop();
         return MovementService.drag(e.gesture.deltaX, e.gesture.deltaY, elem[0].childNodes[0]);
@@ -71,6 +77,12 @@ angular.module("starter.directives").directive('card', function($ionicGesture, M
       releaseFn = function(e) {
         currentX = e.gesture.deltaX;
         currentY = e.gesture.deltaY;
+        if (e.gesture.deltaX > 200) {
+          scope.$emit('card:exit');
+        }
+        if (e.gesture.deltaX < -200) {
+          scope.$emit('card:exit');
+        }
         return MovementService.spring(currentX, currentY, elem[0].childNodes[0]);
       };
       return $ionicGesture.on("release", releaseFn, elem);
@@ -127,7 +139,7 @@ angular.module("starter.services").factory("MovementService", function() {
       }, 13);
     },
     drag: function(x, y, node) {
-      return node.style[ionic.CSS.TRANSFORM] = "translate3d(" + x + "px," + y + "px, -100px) rotate3d(0,0,1," + x / 6 + "deg)";
+      return node.style[ionic.CSS.TRANSFORM] = "translate3d(" + x + "px," + y + "px, -100px) rotate3d(0,0,1," + x / 4 + "deg)";
     },
     spring: function(startingX, startingY, element) {
       currentX = startingX;

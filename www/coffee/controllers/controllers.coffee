@@ -1,7 +1,7 @@
 angular.module("starter.controllers", [])
 
 .controller("DashCtrl", ($scope) ->
-
+  $scope.$on('card:exit', -> console.log('hey'))
 )
 
 .controller("FriendsCtrl", ($scope, Friends) ->
@@ -10,7 +10,7 @@ angular.module("starter.controllers", [])
 
 .controller("FriendDetailCtrl", ($scope, $stateParams, Friends) ->
   $scope.friend = Friends.get($stateParams.friendId)
-) 
+)
 
 .controller("AccountCtrl", ($scope) ->
 

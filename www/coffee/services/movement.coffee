@@ -17,7 +17,7 @@ angular.module("starter.services")
     , 13)
 
   drag: (x, y, node) ->
-    node.style[ionic.CSS.TRANSFORM] = "translate3d(" + (x) + "px," + (y) + "px, -100px) rotate3d(0,0,1," + x / 6 + "deg)"
+    node.style[ionic.CSS.TRANSFORM] = "translate3d(" + (x) + "px," + (y) + "px, -100px) rotate3d(0,0,1," + x / 4 + "deg)"
 
   spring: (startingX, startingY, element) ->
     currentX = startingX
