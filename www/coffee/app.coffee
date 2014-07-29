@@ -3,6 +3,7 @@ angular.module("starter", [
     "starter.controllers"
     "starter.services"
     "starter.directives"
+    "angular-carousel"
   ])
   .run(($ionicPlatform) ->
     $ionicPlatform.ready ->

@@ -7,3 +7,24 @@ a {
   width: 99%;
   background-color: blue;
 }
+
+card {
+  position: absolute;
+  -webkit-transform-style: flat;
+}
+
+card:nth-child(1) {
+  // background-color: red;
+  z-index: 100;
+
+}
+
+card:nth-child(2) {
+  opacity: .1;
+  margin-top: 10px;
+}
+
+card:nth-child(3) {
+  margin-top: 20px;
+  opacity: .1;
+}

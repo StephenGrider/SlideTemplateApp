@@ -5,16 +5,15 @@ angular.module("starter.services")
   currentX = 0
   currentY = 0
 
-  exit: (direction, startingX, startingY, elementToMove, callback) ->
-    intervalId = setInterval(->
-      if startingX < -500 or startingX > 500
-        clearInterval intervalId
-        callback()
+  exit: (direction, startingX, startingY, elementToMove, cb) ->
+    intervalId = (setInterval( ->
+      if startingX < -800 or startingX > 800
+        clearInterval(intervalId)
+        cb() if cb
       if direction is "right" then startingX += 10 else startingX -= 10
 
       elementToMove.style[ionic.CSS.TRANSFORM] = "translate3d(" + (startingX) + "px," + (startingY) + "px, 0px) rotate3d(0,0,1," + startingX / 6 + "deg)"
-
-    , 13)
+    , 13))
 
   drag: (x, y, node) ->
     node.style[ionic.CSS.TRANSFORM] = "translate3d(" + (x) + "px," + (y) + "px, -100px) rotate3d(0,0,1," + x / 4 + "deg)"
@@ -31,4 +30,4 @@ angular.module("starter.services")
     , 13)
 
   stop: ->
-    clearInterval intervalId
+    clearInterval(intervalId)

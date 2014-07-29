@@ -1,7 +1,8 @@
 angular.module("starter.controllers", [])
 
 .controller("DashCtrl", ($scope) ->
-  $scope.$on('card:exit', -> console.log('hey'))
+  $scope.$on('card:exit', -> $scope.$emit('advance'))
+
 )
 
 .controller("FriendsCtrl", ($scope, Friends) ->
