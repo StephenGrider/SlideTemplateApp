@@ -7,17 +7,19 @@ a {
   width: 99%;
   background-color: blue; }
 
-card {
+.list.card {
   position: absolute;
   -webkit-transform-style: flat; }
 
-card:nth-child(1) {
+.list.card:nth-child(1) {
   z-index: 100; }
 
-card:nth-child(2) {
-  opacity: 0.1;
-  margin-top: 10px; }
+.list.card:nth-child(2) {
 
-card:nth-child(3) {
+  margin-top: 10px;
+}
+
+.list.card:nth-child(3) {
   margin-top: 20px;
-  opacity: 0.1; }
+  
+}

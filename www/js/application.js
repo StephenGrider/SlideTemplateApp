@@ -48,29 +48,60 @@ angular.module("starter", ["ionic", "starter.controllers", "starter.services", "
   return $urlRouterProvider.otherwise("/tab/dash");
 });
 
+angular.module("starter.controllers", []).controller("DashCtrl", function($scope) {
+  var cardReserve, newCard;
+  cardReserve = [];
+  $scope.cards = [
+    {
+      val: 1
+    }, {
+      val: 2
+    }, {
+      val: 3
+    }, {
+      val: 4
+    }
+  ];
+  newCard = function() {
+    var card, index, _i, _len;
+    cardReserve.push($scope.cards.shift());
+    if ($scope.cards.length === 2) {
+      for (index = _i = 0, _len = cardReserve.length; _i < _len; index = ++_i) {
+        card = cardReserve[index];
+        $scope.cards.push(cardReserve[index]);
+      }
+      cardReserve = [];
+      return console.log('finish', $scope.cards);
+    }
+  };
+  return $scope.$on('card:exit', function() {
+    return $scope.$apply(newCard);
+  });
+}).controller("FriendsCtrl", function($scope, Friends) {
+  return $scope.friends = Friends.all();
+}).controller("FriendDetailCtrl", function($scope, $stateParams, Friends) {
+  return $scope.friend = Friends.get($stateParams.friendId);
+}).controller("AccountCtrl", function($scope) {});
+
 angular.module("starter.directives", []);
 
 angular.module("starter.directives").directive('card', function($ionicGesture, MovementService) {
   return {
     restrict: 'E',
+    replace: true,
     templateUrl: '/templates/directives/card.html',
-    scope: {
-      index: '=index'
-    },
     link: function(scope, elem, attrs) {
       var advance, afterExit, cardExit, dragFn, draggable, releaseFn;
+      MovementService.reset(elem);
       draggable = true;
       dragFn = function(e) {
-        console.log('drag');
-        if (draggable) {
-          MovementService.stop();
-          MovementService.drag(e.gesture.deltaX, e.gesture.deltaY, elem[0].childNodes[0]);
-          if (e.gesture.deltaX > 200) {
-            cardExit('right', e.gesture.deltaX, e.gesture.deltaY);
-          }
-          if (e.gesture.deltaX < -200) {
-            return cardExit('left', e.gesture.deltaX, e.gesture.deltaY);
-          }
+        MovementService.stop();
+        MovementService.drag(e.gesture.deltaX, e.gesture.deltaY, elem);
+        if (e.gesture.deltaX > 200) {
+          cardExit('right', e.gesture.deltaX, e.gesture.deltaY);
+        }
+        if (e.gesture.deltaX < -200) {
+          return cardExit('left', e.gesture.deltaX, e.gesture.deltaY);
         }
       };
       $ionicGesture.on('drag', dragFn, elem);
@@ -86,13 +117,12 @@ angular.module("starter.directives").directive('card', function($ionicGesture, M
             cardExit('left', currentX, currentY);
           }
         }
-        return MovementService.spring(currentX, currentY, elem[0].childNodes[0]);
+        return MovementService.spring(currentX, currentY, elem);
       };
       $ionicGesture.on("release", releaseFn, elem);
-      afterExit = function() {};
+      afterExit = function(elem) {};
       cardExit = function(direction, currentX, currentY) {
-        draggable = false;
-        MovementService.exit(direction, currentX, currentY, elem[0].childNodes[0], afterExit);
+        MovementService.exit(direction, currentX, currentY, elem, afterExit);
         return scope.$emit('card:exit');
       };
       advance = function() {
@@ -102,16 +132,6 @@ angular.module("starter.directives").directive('card', function($ionicGesture, M
     }
   };
 });
-
-angular.module("starter.controllers", []).controller("DashCtrl", function($scope) {
-  return $scope.$on('card:exit', function() {
-    return $scope.$emit('advance');
-  });
-}).controller("FriendsCtrl", function($scope, Friends) {
-  return $scope.friends = Friends.all();
-}).controller("FriendDetailCtrl", function($scope, $stateParams, Friends) {
-  return $scope.friend = Friends.get($stateParams.friendId);
-}).controller("AccountCtrl", function($scope) {});
 
 angular.module("starter.services", []).factory("Friends", function() {
   var friends;
@@ -147,33 +167,30 @@ angular.module("starter.services").factory("MovementService", function() {
   currentX = 0;
   currentY = 0;
   return {
-    exit: function(direction, startingX, startingY, elementToMove, cb) {
-      console.log('a');
+    reset: function(elem) {
+      return elem.css(ionic.CSS.TRANSFORM, "translate3d(0px, 0px, 0px");
+    },
+    exit: function(direction, startingX, startingY, elem, cb) {
       return setTimeout((function(_this) {
         return function() {
-          if (startingX < -800 || startingX > 800) {
-            console.log('a');
-            stopExit();
-            if (cb) {
-              cb();
-            }
-          }
           if (direction === "right") {
             startingX += 10;
           } else {
             startingX -= 10;
           }
-          elementToMove.style[ionic.CSS.TRANSFORM] = "translate3d(" + startingX + "px," + startingY + "px, 0px) rotate3d(0,0,1," + startingX / 6 + "deg)";
+          elem.css(ionic.CSS.TRANSFORM, "translate3d(" + startingX + "px," + startingY + "px, 0px) rotate3d(0,0,1," + startingX / 6 + "deg)");
           if (!(startingX < -800 || startingX > 800)) {
-            return _this.exit.call(_this, direction, startingX, startingY, elementToMove, cb);
+            return _this.exit.call(_this, direction, startingX, startingY, elem, cb);
+          } else {
+            return _this.reset(elem);
           }
         };
       })(this), 13);
     },
     drag: function(x, y, node) {
-      return node.style[ionic.CSS.TRANSFORM] = "translate3d(" + x + "px," + y + "px, -100px) rotate3d(0,0,1," + x / 4 + "deg)";
+      return node.css(ionic.CSS.TRANSFORM, "translate3d(" + x + "px," + y + "px, -100px) rotate3d(0,0,1," + x / 4 + "deg)");
     },
-    spring: function(startingX, startingY, element) {
+    spring: function(startingX, startingY, elem) {
       currentX = startingX;
       currentY = startingY;
       return intervalId = setInterval(function() {
@@ -182,7 +199,7 @@ angular.module("starter.services").factory("MovementService", function() {
         }
         currentX *= dampeningCoefficient;
         currentY *= dampeningCoefficient;
-        return element.style[ionic.CSS.TRANSFORM] = "translate3d(" + currentX + "px," + currentY + "px, 0px) rotate3d(0,0,1," + currentX / 6 + "deg)";
+        return elem.css(ionic.CSS.TRANSFORM, "translate3d(" + currentX + "px," + currentY + "px, 0px) rotate3d(0,0,1," + currentX / 6 + "deg)");
       }, 13);
     },
     stop: function() {
