@@ -60,6 +60,8 @@ angular.module("starter.controllers", []).controller("DashCtrl", function($scope
       val: 3
     }, {
       val: 4
+    }, {
+      val: 5
     }
   ];
   newCard = function() {
@@ -70,8 +72,7 @@ angular.module("starter.controllers", []).controller("DashCtrl", function($scope
         card = cardReserve[index];
         $scope.cards.push(cardReserve[index]);
       }
-      cardReserve = [];
-      return console.log('finish', $scope.cards);
+      return cardReserve = [];
     }
   };
   return $scope.$on('card:exit', function() {
@@ -89,20 +90,14 @@ angular.module("starter.directives").directive('card', function($ionicGesture, M
   return {
     restrict: 'E',
     replace: true,
-    templateUrl: '/templates/directives/card.html',
+    templateUrl: 'templates/directives/card.html',
     link: function(scope, elem, attrs) {
       var advance, afterExit, cardExit, dragFn, draggable, releaseFn;
       MovementService.reset(elem);
       draggable = true;
       dragFn = function(e) {
         MovementService.stop();
-        MovementService.drag(e.gesture.deltaX, e.gesture.deltaY, elem);
-        if (e.gesture.deltaX > 200) {
-          cardExit('right', e.gesture.deltaX, e.gesture.deltaY);
-        }
-        if (e.gesture.deltaX < -200) {
-          return cardExit('left', e.gesture.deltaX, e.gesture.deltaY);
-        }
+        return MovementService.drag(e.gesture.deltaX, e.gesture.deltaY, elem);
       };
       $ionicGesture.on('drag', dragFn, elem);
       releaseFn = function(e) {
@@ -111,17 +106,18 @@ angular.module("starter.directives").directive('card', function($ionicGesture, M
         currentY = e.gesture.deltaY;
         if (draggable) {
           if (currentX > 200) {
-            cardExit('right', currentX, currentY);
+            cardExit('right', currentX, currentY, 'lkl');
           }
           if (currentX < -200) {
-            cardExit('left', currentX, currentY);
+            cardExit('left', currentX, currentY, 'lkl');
           }
         }
         return MovementService.spring(currentX, currentY, elem);
       };
       $ionicGesture.on("release", releaseFn, elem);
       afterExit = function(elem) {};
-      cardExit = function(direction, currentX, currentY) {
+      cardExit = function(direction, currentX, currentY, b) {
+        console.log(b);
         MovementService.exit(direction, currentX, currentY, elem, afterExit);
         return scope.$emit('card:exit');
       };
