@@ -48,6 +48,39 @@ angular.module("starter", ["ionic", "starter.controllers", "starter.services", "
   return $urlRouterProvider.otherwise("/tab/dash");
 });
 
+angular.module("starter.controllers", []).controller("DashCtrl", function($scope) {}).controller("FriendsCtrl", function($scope, Friends) {
+  return $scope.friends = Friends.all();
+}).controller("FriendDetailCtrl", function($scope, $stateParams, Friends) {
+  return $scope.friend = Friends.get($stateParams.friendId);
+}).controller("AccountCtrl", function($scope) {});
+
+angular.module("starter.services", []).factory("Friends", function() {
+  var friends;
+  friends = [
+    {
+      id: 0,
+      name: "Scruff McGruff"
+    }, {
+      id: 1,
+      name: "G.I. Joe"
+    }, {
+      id: 2,
+      name: "Miss Frizzle"
+    }, {
+      id: 3,
+      name: "Ash Ketchum"
+    }
+  ];
+  return {
+    all: function() {
+      return friends;
+    },
+    get: function(friendId) {
+      return friends[friendId];
+    }
+  };
+});
+
 angular.module("starter.controllers", []).controller("DashCtrl", function($scope) {
   var cardReserve, newCard;
   cardReserve = [];
