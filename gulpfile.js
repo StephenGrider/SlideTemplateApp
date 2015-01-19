@@ -6,9 +6,11 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var to5 = require("gulp-6to5");
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['./scss/**/*.scss'],
+  es6: ['./www/**/*.es6']
 };
 
 gulp.task('default', ['sass']);
@@ -25,8 +27,17 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
+gulp.task('6to5', function(done) {
+  gulp.src(paths.es6)
+  .pipe(to5())
+  .pipe(concat('application.js'))
+  .pipe(gulp.dest('./www/js'))
+  .on('end', done)
+});
+
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.es6, ['6to5'])
 });
 
 gulp.task('install', ['git-check'], function() {
