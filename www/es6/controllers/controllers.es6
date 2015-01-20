@@ -1,38 +1,28 @@
 angular.module('app.controllers')
 
-.controller('AppCtrl', ($scope, $ionicModal, $timeout) => {
-  $scope.loginData = {};
-  
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-  
-  $scope.closeLogin = () => {
-    $scope.modal.hide();
-  };
-  
-  $scope.login = () => {
-    $scope.modal.show();
-  };
-  
-  $scope.doLogin = () => {
-    $scope.closeLogin();
-  };
+.controller('DashCtrl', ($scope) => {} )
+
+.controller('ChatsCtrl', ($scope, Chats) => {
+  $scope.chats = Chats.all();
+  $scope.remove = (chat) => {
+    Chats.remove(chat);
+  }
 })
 
-.controller('PlaylistsCtrl', ($scope) => {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.controller('ChatDetailCtrl', ($scope, $stateParams, Chats) => {
+  $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('PlaylistCtrl', ($scope, $stateParams) => {
-  
+.controller('FriendsCtrl', ($scope, Friends) => {
+  $scope.friends = Friends.all();
+})
+
+.controller('FriendDetailCtrl', ($scope, $stateParams, Friends) => {
+  $scope.friend = Friends.get($stateParams.friendId);
+})
+
+.controller('AccountCtrl', ($scope) => {
+  $scope.settings = {
+    enableFriends: true
+  };
 });

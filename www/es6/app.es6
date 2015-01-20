@@ -1,7 +1,13 @@
 angular.module("app.controllers", [])
 angular.module("app.directives", [])
 
-angular.module('app', ['ionic', 'app.controllers', 'app.directives', 'ionic.contrib.ui.cards'])
+angular.module('app', [
+  'ionic', 
+  'app.services', 
+  'app.controllers', 
+  'app.directives', 
+  'ionic.contrib.ui.cards'
+])
 
 .run(($ionicPlatform) => {
   $ionicPlatform.ready( () => {
@@ -17,18 +23,59 @@ angular.module('app', ['ionic', 'app.controllers', 'app.directives', 'ionic.cont
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   
-  .state('app', {
-    url: "/app",
+  // setup an abstract state for the tabs directive
+  .state('tab', { 
+    url: "/tab",
     abstract: true,
-    templateUrl: "templates/menu.html",
-    controller: 'AppCtrl'
+    templateUrl: "templates/tabs.html"
   })
-
-  .state('app.search', {
-    url: "/search",
+  
+  // Each tab has its own nav history stack:
+  
+  .state('tab.dash', {
+    url: '/dash',
     views: {
-      'menuContent': {
-        templateUrl: "templates/search.html"
+      'tab-dash': {
+        templateUrl: 'templates/tab-dash.html',
+        controller: 'DashCtrl'
+      }
+    }
+  })
+  
+  .state('tab.chats', {
+    url: '/chats',
+    views: {
+      'tab-chats': {
+        templateUrl: 'templates/tab-chats.html',
+        controller: 'ChatsCtrl'
+      }
+    }
+  })
+  .state('tab.chat-detail', {
+    url: '/chats/:chatId',
+    views: {
+      'tab-chats': {
+        templateUrl: 'templates/chat-detail.html',
+        controller: 'ChatDetailCtrl'
+      }
+    }
+  })
+  
+  .state('tab.friends', {
+    url: '/friends',
+    views: {
+      'tab-friends': {
+        templateUrl: 'templates/tab-friends.html',
+        controller: 'FriendsCtrl'
+      }
+    }
+  })
+  .state('tab.friend-detail', {
+    url: '/friend/:friendId',
+    views: {
+      'tab-friends': {
+        templateUrl: 'templates/friend-detail.html',
+        controller: 'FriendDetailCtrl'
       }
     }
   })
@@ -42,25 +89,22 @@ angular.module('app', ['ionic', 'app.controllers', 'app.directives', 'ionic.cont
       }
     }
   })
-  .state('app.playlists', {
-    url: "/playlists",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/playlists.html",
-        controller: 'PlaylistsCtrl'
-      }
-    }
-  })
   
-  .state('app.single', {
-    url: "/playlists/:playlistId",
+  .state('tab.account', {
+    url: '/account',
     views: {
-      'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
+      'tab-account': {
+        templateUrl: 'templates/tab-account.html',
+        controller: 'AccountCtrl'
       }
     }
   });
   
-  $urlRouterProvider.otherwise('/app/playlists');
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/tab/dash');
+  
 });
+
+
+
+
