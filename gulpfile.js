@@ -29,8 +29,8 @@ gulp.task('sass', function(done) {
 
 gulp.task('6to5', function(done) {
   gulp.src(paths.es6)
-  .pipe(to5())
   .pipe(concat('application.js'))
+  .pipe(to5())
   .pipe(gulp.dest('./www/js'))
   .on('end', done)
 });
