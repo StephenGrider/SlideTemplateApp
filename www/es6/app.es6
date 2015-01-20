@@ -1,6 +1,7 @@
 angular.module("app.controllers", [])
+angular.module("app.directives", [])
 
-angular.module('app', ['ionic', 'app.controllers'])
+angular.module('app', ['ionic', 'app.controllers', 'app.directives', 'ionic.contrib.ui.cards'])
 
 .run(($ionicPlatform) => {
   $ionicPlatform.ready( () => {

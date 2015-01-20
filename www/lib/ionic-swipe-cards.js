@@ -58,7 +58,6 @@
       
       // Calculate the top left of a default card, as a translated pos
       var topLeft = window.innerHeight / 2 - this.maxHeight/2;
-      console.log(window.innerHeight, this.maxHeight);
       
       var cardOffset = Math.min(this.cards.length, 3) * 5;
       
@@ -184,7 +183,7 @@
       } else {
         // Fly out
         var rotateTo = (this.rotationAngle + (this.rotationDirection * 0.6)) || (Math.random() * 0.4);
-        var duration = this.rotationAngle ? 0.2 : 0.5;
+        var duration = 2
         this.el.style[TRANSITION] = '-webkit-transform ' + duration + 's ease-in-out';
         this.el.style[ionic.CSS.TRANSFORM] = 'translate3d(' + this.x + ',' + (window.innerHeight * 1.5) + 'px, 0) rotate(' + rotateTo + 'rad)';
         this.onSwipe && this.onSwipe();
@@ -235,23 +234,21 @@
       var width = this.el.offsetWidth;
       var point = window.innerWidth / 2 + this.rotationDirection * (width / 2)
       var distance = Math.abs(point - e.gesture.touches[0].pageX);// - window.innerWidth/2);
-      console.log(distance);
       
       this.touchDistance = distance * 10;
       
-      console.log('Touch distance', this.touchDistance);//this.touchDistance, width);
     },
     
     _doDrag: function(e) {
-      var o = e.gesture.deltaY / 3;
+      var o = e.gesture.deltaX / 3;
       
       this.rotationAngle = Math.atan(o/this.touchDistance) * this.rotationDirection;
       
-      if(e.gesture.deltaY < 0) {
+      if(e.gesture.deltaX < 0) {
         this.rotationAngle = 0;
       }
       
-      this.y = this.startY + (e.gesture.deltaY * 0.4);
+      this.x = this.startY + (e.gesture.deltaX * 0.4);
       
       this.el.style[ionic.CSS.TRANSFORM] = 'translate3d(' + this.x + 'px, ' + this.y  + 'px, 0) rotate(' + (this.rotationAngle || 0) + 'rad)';
     },
@@ -259,7 +256,6 @@
       this.transitionOut(e);
     }
   });
-  
   
   angular.module('ionic.contrib.ui.cards', ['ionic'])
   
