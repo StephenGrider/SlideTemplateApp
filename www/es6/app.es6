@@ -1,4 +1,6 @@
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module("app.controllers", [])
+
+angular.module('app', ['ionic', 'app.controllers'])
 
 .run(($ionicPlatform) => {
   $ionicPlatform.ready( () => {
@@ -34,7 +36,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     url: "/browse",
     views: {
       'menuContent': {
-        templateUrl: "templates/browse.html"
+        templateUrl: "templates/browse.html",
+        controller: 'BrowseCtrl'
       }
     }
   })
@@ -57,6 +60,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   });
-  // if none of the above states are matched, use this as the fallback
+  
   $urlRouterProvider.otherwise('/app/playlists');
 });
