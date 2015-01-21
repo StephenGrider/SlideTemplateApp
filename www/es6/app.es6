@@ -23,14 +23,11 @@ angular.module('app', [
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   
-  // setup an abstract state for the tabs directive
   .state('tab', { 
     url: "/tab",
     abstract: true,
     templateUrl: "templates/tabs.html"
   })
-  
-  // Each tab has its own nav history stack:
   
   .state('tab.dash', {
     url: '/dash',
@@ -70,6 +67,7 @@ angular.module('app', [
       }
     }
   })
+  
   .state('tab.friend-detail', {
     url: '/friend/:friendId',
     views: {
@@ -79,11 +77,11 @@ angular.module('app', [
       }
     }
   })
-  
-  .state('app.browse', {
+
+  .state('tab.browse', {
     url: "/browse",
     views: {
-      'menuContent': {
+      'tab-browse': {
         templateUrl: "templates/browse.html",
         controller: 'BrowseCtrl'
       }
@@ -100,9 +98,7 @@ angular.module('app', [
     }
   });
   
-  // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
-  
 });
 
 
