@@ -240,7 +240,8 @@
     },
     
     _doDrag: function(e) {
-      var o = e.gesture.deltaX / 3;
+      this.dragging = true;
+      var o = e.gesture.deltaX;
       
       this.rotationAngle = Math.atan(o/this.touchDistance) * this.rotationDirection;
       
@@ -248,12 +249,44 @@
         this.rotationAngle = 0;
       }
       
-      this.x = this.startY + (e.gesture.deltaX * 0.4);
+      this.x = this.startX + (e.gesture.deltaX * 0.4);
       
       this.el.style[ionic.CSS.TRANSFORM] = 'translate3d(' + this.x + 'px, ' + this.y  + 'px, 0) rotate(' + (this.rotationAngle || 0) + 'rad)';
     },
+    
+    _decrement: function(val) {
+      if(val < 1 && val > -1) {
+        return 0;
+      } else {
+        return val * .80;
+      }
+    },
+    
+    _springBack: function(e) {
+      if(this.dragging) {
+        return;
+      }
+      
+      this.x = this._decrement(this.x)
+      this.y = this._decrement(this.y)
+      this.rotationAngle = this._decrement(this.rotationAngle)
+      
+      this._applyPosition()
+      ionic.requestAnimationFrame(function() { this._springBack(e) }.bind(this));
+    },
+    
+    _applyPosition: function() {
+      this.el.style[ionic.CSS.TRANSFORM] = 'translate3d(' + this.x + 'px, ' + this.y  + 'px, 0) rotate(' + (this.rotationAngle || 0) + 'rad)';
+    },
+    
     _doDragEnd: function(e) {
-      this.transitionOut(e);
+      this.dragging = false
+      if(e.gesture.deltaX > window.innerWidth * .4) {
+        console.log(e.gesture.deltaX, window.innerWidth)
+        this.transitionOut(e);
+      } else {
+        ionic.requestAnimationFrame(function() { this._springBack(e) }.bind(this));
+      }
     }
   });
   
