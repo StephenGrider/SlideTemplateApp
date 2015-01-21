@@ -20,15 +20,16 @@ angular.module("app.controllers")
   
   $scope.cards = Array.prototype.slice.call(cardTypes, 0, 0);
   
-  $scope.cardSwiped = function(index) {
+  $scope.cardSwiped = (index) => {
     $scope.addCard();
   };
   
-  $scope.cardDestroyed = function(index) {
-    $scope.cards.splice(index, 1);
+  $scope.cardDestroyed = (index) => {
+    console.log('cardDestroyed')
+    $scope.$apply( () => { $scope.cards.splice(index, 1); });
   };
   
-  $scope.addCard = function() {
+  $scope.addCard = () => {
     var newCard = cardTypes[Math.floor(Math.random() * cardTypes.length)];
     newCard.id = Math.random();
     $scope.cards.push(angular.extend({}, newCard));
@@ -36,8 +37,8 @@ angular.module("app.controllers")
 
 })
 
-.controller('CardCtrl', function($scope, $ionicSwipeCardDelegate) {
-  $scope.goAway = function() {
+.controller('CardCtrl', ($scope, $ionicSwipeCardDelegate) => {
+  $scope.goAway = () => {
     var card = $ionicSwipeCardDelegate.getSwipeableCard($scope);
     card.swipe();
   };
