@@ -133,11 +133,6 @@
       var self = this;
       ionic.onGesture('dragstart', function(e) {
         var cx = window.innerWidth / 2;
-        if(e.gesture.touches[0].pageX < cx) {
-          self._transformOriginRight();
-        } else {
-          self._transformOriginLeft();
-        }
         ionic.requestAnimationFrame(function() { self._doDragStart(e) });
       }, this.el);
       
@@ -150,24 +145,12 @@
       }, this.el);
     },
     
-    // Rotate anchored to the left of the screen
-    _transformOriginLeft: function() {
-      // this.el.style[TRANSFORM_ORIGIN] = 'top center';
-      // this.rotationDirection = -1;
-    },
-    
-    _transformOriginRight: function() {
-      // this.el.style[TRANSFORM_ORIGIN] = 'right center';
-      // this.rotationDirection = -1;
-    },
-    
     _doDragStart: function(e) {
       var width = this.el.offsetWidth;
       var point = window.innerWidth / 2 + this.rotationDirection * (width / 2)
       var distance = Math.abs(point - e.gesture.touches[0].pageX);// - window.innerWidth/2);
       
       this.touchDistance = distance * 10;
-      
     },
     
     _doDrag: function(e) {

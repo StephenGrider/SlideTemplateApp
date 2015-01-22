@@ -1,19 +1,19 @@
 .swipe-card {
-  border: 1px solid black;
   position: absolute;
-  background-color:white;
+  
   width: 100%
-  /*transition: opacity 2.0s;*/
-}
-
-.swipe-card:nth-child(2) {
-  background-color: red;
 }
 
 .swipe-deck {
   position: relative; 
 }
 
-.pop-in {
-  /*opacity: .1;*/
+.card-wrapper {
+  transition: opacity 0.5s;
+  background-color:white;
+  border: 1px solid black;
+}
+
+.pop-in .card-wrapper {
+  opacity: 0;
 }
