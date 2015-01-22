@@ -2,19 +2,19 @@ angular.module("app.controllers")
 
 .controller("BrowseCtrl", ($scope, $ionicSwipeCardDelegate) => {
   var cardTypes = [{
-    title: 'Swipe down to clear the card',
+    title: 'Swipe down to clear the card Drag me!',
     image: 'img/ionic.png'
   }, {
-    title: 'Where is this?',
+    title: 'Where is this? Drag me!',
     image: 'img/ionic.png'
   }, {
-    title: 'What kind of grass is this?',
+    title: 'What kind of grass is this? Drag me!',
     image: 'img/ionic.png'
   }, {
-    title: 'What beach is this?',
+    title: 'What beach is this? Drag me!',
     image: 'img/ionic.png'
   }, {
-    title: 'What kind of clouds are these?',
+    title: 'What kind of clouds are these? Drag me!',
     image: 'img/ionic.png'
   }];
   
