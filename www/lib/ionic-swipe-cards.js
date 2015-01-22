@@ -158,15 +158,15 @@
       var dY = e.gesture.deltaY;
       
       this.dragging = true;
-      this.rotationAngle = dX / 8;
-      this.x = this.startX + (dX * 0.8);
-      this.y = this.startY + (dY * 0.8);
+      this.rotationAngle = dX / 12;
+      this.x = this.startX + dX;
+      this.y = this.startY + dY;
       
       this._applyPosition();
     },
     
     _increment: function(val) {
-      return val * 1.03;
+      return val * 1.04;
     },
     
     _decrement: function(val) {

@@ -1,6 +1,5 @@
 .swipe-card {
-  position: absolute;
-  
+  position: absolute;  
   width: 100%
 }
 
@@ -11,7 +10,6 @@
 .card-wrapper {
   transition: opacity 0.5s;
   background-color:white;
-  border: 1px solid black;
 }
 
 .pop-in .card-wrapper {

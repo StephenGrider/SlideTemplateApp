@@ -8,13 +8,26 @@
             on-destroy="cardDestroyed($index)" 
             on-card-swipe="cardSwiped($index)"
             class="swipe-card">
-            <div class="card-wrapper" ng-controller="CardCtrl">
-              <div class="title">
-                {{card.title}}
+            <div class="card-wrapper" ng-controller="CardCtrl">            
+              
+              <div class="list card">
+                
+                <div class="item item-avatar">
+                  <img ng-src="{{card.image}}">
+                  <h2>Some Pair Of Shoes</h2>
+                  <p>They Are Great</p>
+                </div>
+                
+                <div class="item item-image">
+                  <img ng-src="{{card.image}}">
+                </div>
+            
+                <a class="item item-icon-left assertive" href="#">
+                  <i class="icon ion-music-note"></i>
+                  See On Zappos.com
+                </a>
               </div>
-              <div class="image">
-                <img ng-src="{{card.image}}">
-              </div>
+              
             </div>
           </swipe-card>
         </swipe-cards>
