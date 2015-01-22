@@ -175,13 +175,13 @@
       
       this.dragging = true;
       this.rotationAngle = o / 8;
-      this.x = this.startX + (e.gesture.deltaX * 0.4);
+      this.x = this.startX + (e.gesture.deltaX * 0.8);
       
       this._applyPosition()
     },
     
     _increment: function(val) {
-      return val * 1.1
+      return val * 1.03
     },
     
     _decrement: function(val) {
@@ -206,7 +206,6 @@
     },
     
     _applyPosition: function() {
-      //rotate(' + (this.rotationAngle || 0) + 'rad)';
       this.el.style[ionic.CSS.TRANSFORM] = 'translate3d(' + this.x + 'px, ' + this.y  + 'px, 0) rotate3d(0,0,1,' + (this.rotationAngle || 0) + 'deg)';
     },
     
@@ -214,7 +213,7 @@
       this.dragging = false
       if(e.gesture.deltaX > window.innerWidth * .4) {
         this.transitionOut(e);
-        setTimeout(this.onDestroy.bind(this), 300)
+        setTimeout(this.onDestroy.bind(this), 600)
         this.onSwipe()
       } else {
         ionic.requestAnimationFrame(function() { this._springBack(e) }.bind(this));
@@ -246,7 +245,6 @@
       link: function($scope, $element, $attr, swipeCards) {
         var el = $element[0];
         
-        // Instantiate our card view
         var swipeableCard = new SwipeableCardView({
           el: el,
           onSwipe: function() {
