@@ -18,7 +18,7 @@ angular.module("app.controllers")
     image: 'img/ionic.png'
   }];
   
-  $scope.cards = Array.prototype.slice.call(cardTypes, 0, 3);
+  $scope.cards = Array.prototype.slice.call(cardTypes, 0, 2);
   
   $scope.cardSwiped = (index) => {
     $scope.addCard();

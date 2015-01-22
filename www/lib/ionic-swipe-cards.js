@@ -171,17 +171,19 @@
     },
     
     _doDrag: function(e) {
-      var o = e.gesture.deltaX;
+      var dX = e.gesture.deltaX;
+      var dY = e.gesture.deltaY;
       
       this.dragging = true;
-      this.rotationAngle = o / 8;
-      this.x = this.startX + (e.gesture.deltaX * 0.8);
+      this.rotationAngle = dX / 8;
+      this.x = this.startX + (dX * 0.8);
+      this.y = this.startY + (dY * 0.8);
       
-      this._applyPosition()
+      this._applyPosition();
     },
     
     _increment: function(val) {
-      return val * 1.03
+      return val * 1.03;
     },
     
     _decrement: function(val) {
@@ -197,11 +199,11 @@
         return;
       }
       
-      this.x = this._decrement(this.x)
-      this.y = this._decrement(this.y)
-      this.rotationAngle = this._decrement(this.rotationAngle)
+      this.x = this._decrement(this.x);
+      this.y = this._decrement(this.y);
+      this.rotationAngle = this._decrement(this.rotationAngle);
       
-      this._applyPosition()
+      this._applyPosition();
       ionic.requestAnimationFrame(function() { this._springBack(e) }.bind(this));
     },
     
@@ -211,20 +213,20 @@
     
     _doDragEnd: function(e) {
       this.dragging = false
-      if(e.gesture.deltaX > window.innerWidth * .4) {
+      if(Math.abs(e.gesture.deltaX) > window.innerWidth * .4) {
         this.transitionOut(e);
-        setTimeout(this.onDestroy.bind(this), 600)
-        this.onSwipe()
+        setTimeout(this.onDestroy.bind(this), 600);
+        this.onSwipe();
       } else {
-        ionic.requestAnimationFrame(function() { this._springBack(e) }.bind(this));
+        ionic.requestAnimationFrame(function() { this._springBack(e); }.bind(this));
       }
     },
     
     transitionOut: function() {
-      this.x = this._increment(this.x)
-      this.y = this._increment(this.y)
-      this.rotationAngle = this._increment(this.rotationAngle)      
-      this._applyPosition()
+      this.x = this._increment(this.x);
+      this.y = this._increment(this.y);
+      this.rotationAngle = this._increment(this.rotationAngle);
+      this._applyPosition();
       
       ionic.requestAnimationFrame(this.transitionOut.bind(this));
     }
