@@ -24,6 +24,22 @@ angular.module('app.services', [])
   };
 })
 
+.factory('LineItems', (Restangular) => {
+  Restangular.setBaseUrl('http://localhost:3000/');
+  var lineItems = Restangular.service('api/v1/line_items');
+  
+  return {
+    like: (item) => {
+      lineItems.post({
+        item_id: item.id
+      });
+    },
+    dislike: (item) => {
+      
+    }
+  }
+})
+
 .factory('Chats', () => {
   // Might use a resource here that returns a JSON array
   

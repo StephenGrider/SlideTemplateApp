@@ -1,6 +1,6 @@
 angular.module("app.controllers")
 
-.controller("BrowseCtrl", ($scope, $ionicSwipeCardDelegate, Items) => {
+.controller("BrowseCtrl", ($scope, $ionicSwipeCardDelegate, Items, LineItems) => {
   $scope.cards = [];
   Items.getItem($scope.cards);
   
@@ -9,6 +9,7 @@ angular.module("app.controllers")
   };
   
   $scope.cardDestroyed = (index) => {
+    LineItems.like($scope.cards[index]);
     $scope.cards.splice(index, 1);
   };
   

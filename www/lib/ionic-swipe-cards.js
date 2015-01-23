@@ -267,7 +267,7 @@
         
         this.swipeController = swipeController;
         
-        //return swipeController;
+        return swipeController;
       }
     }
   }])
