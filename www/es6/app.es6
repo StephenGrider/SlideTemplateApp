@@ -6,7 +6,8 @@ angular.module('app', [
   'app.services', 
   'app.controllers', 
   'app.directives', 
-  'ionic.contrib.ui.cards'
+  'ionic.contrib.ui.cards',
+  'restangular'
 ])
 
 .run(($ionicPlatform) => {

@@ -1,38 +1,20 @@
 angular.module("app.controllers")
 
-.controller("BrowseCtrl", ($scope, $ionicSwipeCardDelegate) => {
-  var cardTypes = [{
-    title: 'Swipe down to clear the card Drag me!',
-    image: 'img/ionic.png'
-  }, {
-    title: 'Where is this? Drag me!',
-    image: 'img/ionic.png'
-  }, {
-    title: 'What kind of grass is this? Drag me!',
-    image: 'img/ionic.png'
-  }, {
-    title: 'What beach is this? Drag me!',
-    image: 'img/ionic.png'
-  }, {
-    title: 'What kind of clouds are these? Drag me!',
-    image: 'img/ionic.png'
-  }];
-  
-  $scope.cards = Array.prototype.slice.call(cardTypes, 0, 1);
+.controller("BrowseCtrl", ($scope, $ionicSwipeCardDelegate, Items) => {
+  $scope.cards = [];
+  Items.getItem($scope.cards);
   
   $scope.cardSwiped = (index) => {
     $scope.addCard();
   };
   
   $scope.cardDestroyed = (index) => {
-    $scope.$apply( () => { $scope.cards.splice(index, 1); });
+    $scope.cards.splice(index, 1);
   };
   
   $scope.addCard = () => {
-    var newCard = cardTypes[Math.floor(Math.random() * cardTypes.length)];
-    newCard.id = Math.random();
-    $scope.cards.push(angular.extend({}, newCard));
-  }
+    Items.getItem($scope.cards);
+  };
 
 })
 

@@ -1,5 +1,5 @@
 <ion-view view-title="Browse">
-  <ion-content class="padding" noScroll scroll="false">
+  <ion-content noScroll scroll="false">
     
     <div class="row">
       <div class="col swipe-deck">
@@ -14,17 +14,17 @@
                 
                 <div class="item item-avatar">
                   <img ng-src="{{card.image}}">
-                  <h2>Some Pair Of Shoes</h2>
-                  <p>They Are Great</p>
+                  <h2>{{card.title}}</h2>
+                  <p>{{card.price}}</p>
                 </div>
                 
                 <div class="item item-image">
-                  <img ng-src="{{card.image}}">
+                  <img ng-src="{{card.image_url}}">
                 </div>
             
                 <a class="item item-icon-left assertive" href="#">
                   <i class="icon ion-music-note"></i>
-                  See On Zappos.com
+                  See On Amazon.com
                 </a>
               </div>
               
