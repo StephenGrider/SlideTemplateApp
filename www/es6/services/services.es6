@@ -1,5 +1,29 @@
 angular.module('app.services', [])
 
+.factory('Items', (Restangular) => {
+  Restangular.setBaseUrl('http://localhost:3000/');
+  var itemStore = [];
+  
+  var promise = Restangular.all('api/v1/items').getList().then( (items) => {
+    itemStore = itemStore.concat(items);
+  });
+  
+  return {
+    index: () => {
+      return itemStore;
+    },
+    getItem: (deck) => {
+      if(!itemStore.length) {
+        promise.then(() => {
+          deck.push(itemStore.pop());
+        });
+      } else {
+        return deck.push(itemStore.pop());
+      }
+    }
+  };
+})
+
 .factory('Chats', () => {
   // Might use a resource here that returns a JSON array
   
