@@ -8,8 +8,13 @@ angular.module("app.controllers")
     $scope.addCard();
   };
   
-  $scope.cardDestroyed = (index) => {
-    LineItems.like($scope.cards[index]);
+  $scope.cardDestroyed = (index, cardContext) => {
+    if(cardContext.swipeCard.direction === 'right') {
+      LineItems.like($scope.cards[index]);
+    } else {
+      LineItems.dislike($scope.cards[index]);
+    }
+    
     $scope.cards.splice(index, 1);
   };
   

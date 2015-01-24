@@ -21,7 +21,11 @@ angular.module('app', [
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config((RestangularProvider) => {
+  RestangularProvider.setDefaultHeaders({GUID_TOKEN: "123456"});
+})
+
+.config(($stateProvider, $urlRouterProvider) => {
   $stateProvider
   
   .state('tab', { 

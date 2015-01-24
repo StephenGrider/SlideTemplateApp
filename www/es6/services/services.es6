@@ -4,10 +4,16 @@ angular.module('app.services', [])
   Restangular.setBaseUrl('http://localhost:3000/');
   var itemStore = [];
   
-  var promise = Restangular.all('api/v1/items').getList().then( (items) => {
+  var options = { 
+    unrated: true 
+  };
+  
+  var req = Restangular.all('api/v1/items')
+
+  var promise = req.getList(options).then( (items) => {
     itemStore = itemStore.concat(items);
   });
-  
+   
   return {
     index: () => {
       return itemStore;
@@ -31,11 +37,18 @@ angular.module('app.services', [])
   return {
     like: (item) => {
       lineItems.post({
-        item_id: item.id
+        item_id: item.id,
+        liked: true
       });
     },
     dislike: (item) => {
-      
+      lineItems.post({
+        item_id: item.id,
+        liked: false
+      });
+    },
+    getLiked: () => {
+      return lineItems.getList()
     }
   }
 })

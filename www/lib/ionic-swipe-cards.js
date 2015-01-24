@@ -195,8 +195,14 @@
     },
     
     _doDragEnd: function(e) {
-      this.dragging = false
+      this.dragging = false;
+      
       if(Math.abs(e.gesture.deltaX) > window.innerWidth * .4) {
+        if(e.gesture.deltaX > 0) {
+          this.direction = 'right';
+        } else {
+          this.direction = 'left';
+        }
         this.transitionOut(e);
         setTimeout(this.onDestroy.bind(this), 600);
         this.onSwipe();
@@ -239,8 +245,9 @@
           },
           onDestroy: function() {
             $timeout(function() {
-              $scope.onDestroy();
-            });
+              $scope.direction = this.direction;
+              $scope.onDestroy(this.direction);
+            }.bind(this));
           },
         });
         $scope.$parent.swipeCard = swipeableCard;

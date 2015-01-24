@@ -5,7 +5,7 @@
       <div class="col swipe-deck">
         <swipe-cards>
           <swipe-card ng-repeat="card in cards" 
-            on-destroy="cardDestroyed($index)" 
+            on-destroy="cardDestroyed($index, this)" 
             on-card-swipe="cardSwiped($index)"
             class="swipe-card">
             <div class="card-wrapper" ng-controller="CardCtrl">            
