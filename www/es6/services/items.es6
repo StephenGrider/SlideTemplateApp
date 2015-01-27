@@ -15,8 +15,11 @@ angular.module('app.services')
   });
   
   return {
-    index: () => {
-      return req.getList();
+    index: (options) => { 
+      if(!options) {
+        options = {};
+      }
+      return req.getList(options);
     },
     getItem: (deck) => {
       if(!itemStore.length) {

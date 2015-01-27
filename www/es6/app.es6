@@ -50,12 +50,12 @@ angular.module('app', [
     }
   })
   
-  .state('tab.chats', {
-    url: '/chats',
+  .state('tab.liked', {
+    url: '/liked',
     views: {
-      'tab-chats': {
-        templateUrl: 'templates/tab-chats.html',
-        controller: 'ChatsCtrl'
+      'tab-liked': {
+        templateUrl: 'templates/tab-liked.html',
+        controller: 'LikedCtrl'
       }
     }
   })

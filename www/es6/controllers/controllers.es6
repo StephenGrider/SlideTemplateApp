@@ -2,10 +2,13 @@ angular.module('app.controllers')
 
 .controller('DashCtrl', ($scope) => {} )
 
-.controller('ChatsCtrl', ($scope, Chats) => {
-  $scope.chats = Chats.all();
+.controller('LikedCtrl', ($scope, Items) => {
+  $scope.items = [];
+  Items.index({liked: true}).then((items) => {
+    $scope.items = items;
+  });
   $scope.remove = (chat) => {
-    Chats.remove(chat);
+    Items.remove(chat);
   }
 })
 
