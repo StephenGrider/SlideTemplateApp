@@ -23,7 +23,12 @@ angular.module('app', [
 })
 
 .config((RestangularProvider) => {
-  RestangularProvider.setDefaultHeaders({GUID_TOKEN: "123456"});
+  var guid = JSON.parse(localStorage.getItem("_amzn:guid"));;
+  if(!guid) {
+    guid = Guid.raw();
+    localStorage.setItem("_amzn:guid", JSON.stringify(guid));
+  }
+  RestangularProvider.setDefaultHeaders({GUID_TOKEN: guid});
 })
 
 .config(($stateProvider, $urlRouterProvider) => {
@@ -106,7 +111,3 @@ angular.module('app', [
   
   $urlRouterProvider.otherwise('/tab/dash');
 });
-
-
-
-
