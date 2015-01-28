@@ -11,6 +11,7 @@ angular.module('app', [
   'restangular'
 ])
 
+
 .run(($ionicPlatform) => {
   $ionicPlatform.ready( () => {
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -20,6 +21,10 @@ angular.module('app', [
       StatusBar.styleDefault();
     }
   });
+})
+
+.config(($ionicConfigProvider) => {
+  $ionicConfigProvider.views.maxCache(5);
 })
 
 .config((RestangularProvider) => {
