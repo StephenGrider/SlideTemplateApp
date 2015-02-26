@@ -1,6 +1,10 @@
 <ion-view view-title="Favorites">
   <ion-content>
-    <ion-list>
+    <div ng-class="{hidden: spinner, row: true, center: true}">
+      <img class="spinner" ng-src="assets/img/spinner.gif"></img>
+    </div>
+
+    <ion-list ng-class="{hidden: !spinner}">
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in items" type="item-text-wrap" href="#/tab/items/{{item.id}}">
         <img ng-src="{{item.face}}">
         <h2>{{item.title}}</h2>

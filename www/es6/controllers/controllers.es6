@@ -4,13 +4,16 @@ angular.module('app.controllers')
 
 .controller('LikedCtrl', ($scope, Items) => {
   $scope.items = [];
-  
+
   $scope.$on("$ionicView.enter", (event) => {
+    $scope.spinner = false
+
     Items.index({liked: true}).then((items) => {
+      $scope.spinner = true
       $scope.items = items;
     });
   });
-  
+
   $scope.remove = (chat) => {
     Items.remove(chat);
   }

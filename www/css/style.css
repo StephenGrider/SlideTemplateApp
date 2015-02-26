@@ -1,10 +1,10 @@
 .swipe-card {
-  position: absolute;  
+  position: absolute;
   width: 100%
 }
 
 .swipe-deck {
-  position: relative; 
+  position: relative;
 }
 
 .card-wrapper {
@@ -14,4 +14,22 @@
 
 .pop-in .card-wrapper {
   opacity: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.spinner {
+  height: 50%;
+  width: 50%;
+}
+
+.center{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: center;
 }
