@@ -3,10 +3,10 @@ angular.module("app.directives", [])
 angular.module('app.services', [])
 
 angular.module('app', [
-  'ionic', 
-  'app.services', 
-  'app.controllers', 
-  'app.directives', 
+  'ionic',
+  'app.services',
+  'app.controllers',
+  'app.directives',
   'ionic.contrib.ui.cards',
   'restangular'
 ])
@@ -38,13 +38,13 @@ angular.module('app', [
 
 .config(($stateProvider, $urlRouterProvider) => {
   $stateProvider
-  
-  .state('tab', { 
+
+  .state('tab', {
     url: "/tab",
     abstract: true,
     templateUrl: "templates/tabs.html"
   })
-  
+
   .state('tab.dash', {
     url: '/dash',
     views: {
@@ -54,7 +54,7 @@ angular.module('app', [
       }
     }
   })
-  
+
   .state('tab.liked', {
     url: '/liked',
     views: {
@@ -73,7 +73,7 @@ angular.module('app', [
       }
     }
   })
-  
+
   .state('tab.friends', {
     url: '/friends',
     views: {
@@ -83,7 +83,7 @@ angular.module('app', [
       }
     }
   })
-  
+
   .state('tab.friend-detail', {
     url: '/friend/:friendId',
     views: {
@@ -103,7 +103,7 @@ angular.module('app', [
       }
     }
   })
-  
+
   .state('tab.account', {
     url: '/account',
     views: {
@@ -113,6 +113,6 @@ angular.module('app', [
       }
     }
   });
-  
+
   $urlRouterProvider.otherwise('/tab/dash');
 });
