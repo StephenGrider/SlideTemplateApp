@@ -6,9 +6,9 @@
 
     <ion-list ng-class="{hidden: !spinner}">
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in items" type="item-text-wrap" href="#/tab/items/{{item.id}}">
-        <img ng-src="{{item.face}}">
+        <img ng-src="{{item.image_url}}">
         <h2>{{item.title}}</h2>
-        <p>{{item.lastText}}</p>
+        <p>${{item.price}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="remove(item)">
@@ -17,4 +17,4 @@
       </ion-item>
     </ion-list>
   </ion-content>
-</ion-view>
+</ion-view> s
